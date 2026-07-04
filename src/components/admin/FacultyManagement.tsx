@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 
 interface FacultyMember {
   id: string;
@@ -247,8 +248,12 @@ export function FacultyManagement() {
               <Input value={role} onChange={(e) => setRole(e.target.value)} placeholder="e.g. Principal & IT Head" />
             </div>
             <div>
-              <Label>Photo URL</Label>
-              <Input value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} placeholder="https://..." />
+              <ImageUpload
+                value={photoUrl}
+                onChange={setPhotoUrl}
+                label="Photo"
+                bucket="gallery"
+              />
             </div>
             <div>
               <Label>Experience</Label>
