@@ -251,60 +251,61 @@ export default function AdminDashboard() {
           </div>
 
           {/* Tabs */}
-          <Tabs defaultValue="applications" className="space-y-6">
-            <TabsList className="flex flex-wrap w-full max-w-6xl gap-1">
-              <TabsTrigger value="applications" className="flex items-center gap-2">
-                <FileText className="w-4 h-4" />
-                <span className="hidden sm:inline">Applications</span>
+          <Tabs defaultValue="applications" className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+            <TabsList className="flex lg:flex-col justify-start overflow-x-auto lg:overflow-visible w-full lg:w-56 lg:min-w-56 h-auto items-start gap-1 bg-transparent p-0 flex-nowrap pb-2 lg:pb-0 scrollbar-hide">
+              <TabsTrigger value="applications" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <FileText className="w-4 h-4 mr-2" />
+                <span className="inline">Applications</span>
               </TabsTrigger>
-              <TabsTrigger value="students" className="flex items-center gap-2">
-                <GraduationCap className="w-4 h-4" />
-                <span className="hidden sm:inline">Students</span>
+              <TabsTrigger value="students" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <GraduationCap className="w-4 h-4 mr-2" />
+                <span className="inline">Students</span>
               </TabsTrigger>
-              <TabsTrigger value="fees" className="flex items-center gap-2">
-                <DollarSign className="w-4 h-4" />
-                <span className="hidden sm:inline">Fees</span>
+              <TabsTrigger value="fees" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <DollarSign className="w-4 h-4 mr-2" />
+                <span className="inline">Fees</span>
               </TabsTrigger>
-              <TabsTrigger value="courses" className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4" />
-                <span className="hidden sm:inline">Courses</span>
+              <TabsTrigger value="courses" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <BookOpen className="w-4 h-4 mr-2" />
+                <span className="inline">Courses</span>
               </TabsTrigger>
-              <TabsTrigger value="gallery" className="flex items-center gap-2">
-                <Image className="w-4 h-4" />
-                <span className="hidden sm:inline">Gallery</span>
+              <TabsTrigger value="gallery" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <Image className="w-4 h-4 mr-2" />
+                <span className="inline">Gallery</span>
               </TabsTrigger>
-              <TabsTrigger value="blog" className="flex items-center gap-2">
-                <Newspaper className="w-4 h-4" />
-                <span className="hidden sm:inline">Blog</span>
+              <TabsTrigger value="blog" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <Newspaper className="w-4 h-4 mr-2" />
+                <span className="inline">Blog</span>
               </TabsTrigger>
-              <TabsTrigger value="ads" className="flex items-center gap-2">
-                <Megaphone className="w-4 h-4" />
-                <span className="hidden sm:inline">Ads</span>
+              <TabsTrigger value="ads" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <Megaphone className="w-4 h-4 mr-2" />
+                <span className="inline">Ads</span>
               </TabsTrigger>
-              <TabsTrigger value="faculty" className="flex items-center gap-2">
-                <UserCheck className="w-4 h-4" />
-                <span className="hidden sm:inline">Faculty</span>
+              <TabsTrigger value="faculty" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <UserCheck className="w-4 h-4 mr-2" />
+                <span className="inline">Faculty</span>
               </TabsTrigger>
-              <TabsTrigger value="testimonials" className="flex items-center gap-2">
-                <MessageSquare className="w-4 h-4" />
-                <span className="hidden sm:inline">Testimonials</span>
+              <TabsTrigger value="testimonials" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <MessageSquare className="w-4 h-4 mr-2" />
+                <span className="inline">Testimonials</span>
               </TabsTrigger>
-              <TabsTrigger value="pages" className="flex items-center gap-2">
-                <LayoutIcon className="w-4 h-4" />
-                <span className="hidden sm:inline">Pages</span>
+              <TabsTrigger value="pages" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <LayoutIcon className="w-4 h-4 mr-2" />
+                <span className="inline">Pages</span>
               </TabsTrigger>
-              <TabsTrigger value="site-settings" className="flex items-center gap-2">
-                <Globe className="w-4 h-4" />
-                <span className="hidden sm:inline">Site</span>
+              <TabsTrigger value="site-settings" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <Globe className="w-4 h-4 mr-2" />
+                <span className="inline">Site</span>
               </TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-2">
-                <Settings className="w-4 h-4" />
-                <span className="hidden sm:inline">Settings</span>
+              <TabsTrigger value="settings" className="w-full justify-start text-left data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none px-4 py-2.5 rounded-lg whitespace-nowrap lg:whitespace-normal font-medium transition-colors">
+                <Settings className="w-4 h-4 mr-2" />
+                <span className="inline">Settings</span>
               </TabsTrigger>
             </TabsList>
 
-            {/* Applications Tab */}
-            <TabsContent value="applications" className="space-y-6">
+            <div className="flex-1 min-w-0 w-full lg:max-w-[calc(100%-16rem)]">
+              {/* Applications Tab */}
+              <TabsContent value="applications" className="mt-0 space-y-6">
               {/* Stats */}
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
                 <motion.div
@@ -590,6 +591,7 @@ export default function AdminDashboard() {
             <TabsContent value="fees">
               <FeeManagement />
             </TabsContent>
+            </div>
           </Tabs>
 
           {/* Application Detail Modal */}
