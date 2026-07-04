@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
-const logo = "https://placehold.co/200x60/1e40af/ffffff?text=Win+Academy";
+import logoImage from "@/assets/logo.png";
+const logo = logoImage;
 import { supabase } from "@/integrations/supabase/client";
 
 const quickLinks = [

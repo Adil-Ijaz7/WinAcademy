@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-const logo = "https://placehold.co/200x60/1e40af/ffffff?text=Win+Academy";
+import logoImage from "@/assets/logo.png";
+const logo = logoImage;
 
 const navLinks = [
   { name: "Home", path: "/" },

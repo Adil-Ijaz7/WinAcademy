@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import heroIconImage from "@/assets/heroicon.jpg";
 
 interface HeroData {
   title: string;
@@ -25,7 +26,7 @@ export function Hero() {
   const subtitle = data?.subtitle || "Registrations Are open";
   const content = data?.content || "";
   const meta = data?.metadata || {};
-  const logo = meta.logo_url || "/lovable-uploads/35942170-a784-4a12-b5aa-c0a9c746ea8b.jpg";
+  const logo = meta.logo_url || heroIconImage;
   const stats = meta.stats || [{ number: "500+", label: "Students" }, { number: "23+", label: "Courses" }, { number: "10+", label: "Teachers" }];
   const ctaPrimary = meta.cta_primary || { text: "Explore Courses", link: "/courses" };
   const ctaSecondary = meta.cta_secondary || { text: "Contact Us", link: "/contact" };
@@ -34,8 +35,12 @@ export function Hero() {
     <section className="relative min-h-[90vh] flex items-center gradient-hero">
       <div className="container mx-auto px-4 relative z-10 py-5">
         <div className="max-w-3xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8 border-none rounded-lg">
-            <img alt="Win Academy" className="h-20 lg:h-28 w-auto mx-auto border-0 rounded-full" src={logo} />
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8 flex justify-center">
+            <img 
+              alt="Win Academy" 
+              className="h-28 w-28 lg:h-36 lg:w-36 object-cover mx-auto rounded-full shadow-lg border-2 border-primary-foreground/20" 
+              src={logo} 
+            />
           </motion.div>
 
           <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }} className="inline-block px-3 py-1 rounded-full bg-primary-foreground/10 text-primary-foreground mb-6 text-base">
