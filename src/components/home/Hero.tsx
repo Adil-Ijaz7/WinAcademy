@@ -24,7 +24,7 @@ export function Hero() {
 
   const title = data?.title || "WIN ACADEMY";
   const subtitle = data?.subtitle || "Registrations Are open";
-  const content = data?.content || "";
+  const content = data?.content || "Win Academy is a place where passion meets purpose. With 22+ years of hands-on experience and real-world IT expertise, we empower students with practical skills, discipline, and the confidence to succeed.";
   const meta = data?.metadata || {};
   const logo = meta.logo_url || heroIconImage;
   const stats = meta.stats || [{ number: "500+", label: "Students" }, { number: "23+", label: "Courses" }, { number: "10+", label: "Teachers" }];
