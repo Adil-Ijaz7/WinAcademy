@@ -5,7 +5,6 @@ import {
   Star, Heart, Trophy, Target, Zap, LucideIcon,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import whyChooseUsImg from "@/assets/why-choose-us.jpg";
 
 const iconMap: Record<string, LucideIcon> = {
   GraduationCap, Users, Award, Clock, BookOpen, Laptop, CheckCircle,
@@ -34,7 +33,7 @@ export function Features() {
   const [intro, setIntro] = useState(
     "22 years of passion, expertise, and results — here's what sets us apart."
   );
-  const [image, setImage] = useState<string>(whyChooseUsImg);
+  const [image, setImage] = useState<string>("https://placehold.co/800x1066/e2e8f0/475569?text=Win+Academy");
   const [features, setFeatures] = useState<Feature[]>(fallbackFeatures);
 
   useEffect(() => {
