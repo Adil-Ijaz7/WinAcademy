@@ -1,0 +1,1 @@
+REVOKE SELECT ON TABLE public.user_roles FROM anon;

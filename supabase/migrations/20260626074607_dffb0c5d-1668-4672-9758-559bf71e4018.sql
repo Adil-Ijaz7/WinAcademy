@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Anyone can submit applications" ON public.admission_applications;
