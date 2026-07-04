@@ -12,3 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/auth
+
+Sitemap: https://winacademy.vercel.app/sitemap.xml

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Award, BookOpen } from "lucide-react";
@@ -55,6 +56,19 @@ export default function Faculty() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Faculty – Meet Our Expert Teachers"
+        description="Meet the experienced faculty at Win Academy, Dadu. Expert teachers in IT, Computer Science, and Academic subjects with years of real-world experience."
+        path="/faculty"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: "Faculty", item: "https://winacademy.vercel.app/faculty" },
+          ],
+        }}
+      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 gradient-primary">
         <div className="container mx-auto px-4 text-center">

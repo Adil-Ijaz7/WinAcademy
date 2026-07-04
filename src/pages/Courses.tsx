@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock, Award, BookOpen } from "lucide-react";
@@ -54,6 +55,19 @@ const Courses = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Courses – IT, Programming & Academic Programs"
+        description="Explore Win Academy's courses: Programming, AI, Web Development, Mathematics, Physics, English and more in Dadu, Sindh. Enroll now!"
+        path="/courses"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: "Courses", item: "https://winacademy.vercel.app/courses" },
+          ],
+        }}
+      />
       {/* Hero Section */}
       <section className="relative py-20 lg:py-28 overflow-hidden">
         <div className="absolute inset-0 gradient-hero opacity-90" />

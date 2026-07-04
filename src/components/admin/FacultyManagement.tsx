@@ -210,6 +210,17 @@ export function FacultyManagement() {
             <div className="flex-1 min-w-0">
               <p className="font-medium text-foreground truncate">{m.name}</p>
               <p className="text-sm text-muted-foreground truncate">{m.role}</p>
+              <div className="flex flex-wrap gap-1 mt-1">
+                {m.qualifications?.slice(0, 2).map((q, i) => (
+                  <span key={i} className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">{q}</span>
+                ))}
+                {(m.expertise?.length ?? 0) > 0 && (
+                  <span className="text-xs text-muted-foreground">|</span>
+                )}
+                {m.expertise?.slice(0, 2).map((e, i) => (
+                  <span key={i} className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded">{e}</span>
+                ))}
+              </div>
             </div>
             <Badge variant={m.active ? "default" : "secondary"}>
               {m.active ? "Active" : "Hidden"}

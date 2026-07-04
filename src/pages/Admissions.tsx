@@ -5,6 +5,7 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 import { GraduationCap, Send, CheckCircle, FileText, Users, Clock, Award } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -179,6 +180,19 @@ export default function Admissions() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Apply Now – Online Admission Form"
+        description="Apply for admission at Win Academy, Dadu, Sindh. Online application form for IT, Programming, and Academic courses. Quick processing within 2-3 days."
+        path="/admissions"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: "Admissions", item: "https://winacademy.vercel.app/admissions" },
+          ],
+        }}
+      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 gradient-primary opacity-10" />

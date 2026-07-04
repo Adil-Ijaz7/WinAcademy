@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { Lightbox } from "@/components/gallery/Lightbox";
 import { Badge } from "@/components/ui/badge";
 import { Camera, Users, Building, Trophy, Loader2 } from "lucide-react";
@@ -79,6 +80,19 @@ export default function Gallery() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Gallery – Campus & Event Photos"
+        description="View photos from Win Academy's campus, events, and student activities in Dadu, Sindh. See our vibrant learning environment."
+        path="/gallery"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: "Gallery", item: "https://winacademy.vercel.app/gallery" },
+          ],
+        }}
+      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 gradient-primary">
         <div className="container mx-auto px-4 text-center">

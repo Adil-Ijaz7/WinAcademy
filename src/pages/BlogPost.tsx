@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Calendar, ArrowLeft } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -83,6 +84,34 @@ export default function BlogPost() {
 
   return (
     <Layout>
+      <SEOHead
+        title={post.title}
+        description={post.content.substring(0, 160).replace(/\n/g, " ")}
+        path={`/blog/${slug}`}
+        type="article"
+        image={post.featured_image || undefined}
+        jsonLd={[{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          image: post.featured_image || undefined,
+          datePublished: post.created_at,
+          author: { "@type": "Organization", name: "Win Academy" },
+          publisher: {
+            "@type": "Organization",
+            name: "Win Academy",
+            logo: { "@type": "ImageObject", url: "https://winacademy.vercel.app/logo.png" },
+          },
+        }, {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: "Blog", item: "https://winacademy.vercel.app/blog" },
+            { "@type": "ListItem", position: 3, name: post.title, item: `https://winacademy.vercel.app/blog/${slug}` },
+          ],
+        }]}
+      />
       <article className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <motion.div

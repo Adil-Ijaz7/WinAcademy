@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -70,6 +71,33 @@ const Contact = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Contact Us – Get in Touch"
+        description="Contact Win Academy in Dadu, Sindh. Phone: +92 345 3781552, Email: winacademydadu@gmail.com. Visit us or send an inquiry online."
+        path="/contact"
+        jsonLd={[{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Win Academy",
+          image: "https://winacademy.vercel.app/logo.png",
+          telephone: "+923453781552",
+          email: "winacademydadu@gmail.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "PQPC+64, Chano Dādu",
+            addressLocality: "Dadu",
+            addressRegion: "Sindh",
+            addressCountry: "PK",
+          },
+        }, {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: "Contact", item: "https://winacademy.vercel.app/contact" },
+          ],
+        }]}
+      />
       {/* Hero Section */}
       <section className="relative py-20 lg:py-28 overflow-hidden">
         <div className="absolute inset-0 gradient-hero opacity-90" />

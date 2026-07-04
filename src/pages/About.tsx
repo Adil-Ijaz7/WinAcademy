@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { Target, Eye, BookOpen, Award, Users, Lightbulb } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -34,6 +35,19 @@ const About = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="About Us – 22+ Years of Educational Excellence"
+        description="Learn about Win Academy's mission, vision, and 22-year legacy of quality education in Dadu, Sindh, Pakistan. Empowering students with IT and academic excellence."
+        path="/about"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: "About Us", item: "https://winacademy.vercel.app/about" },
+          ],
+        }}
+      />
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 gradient-hero opacity-90" />
         <div className="absolute inset-0 bg-hero-pattern" />

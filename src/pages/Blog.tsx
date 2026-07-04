@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { supabase } from "@/integrations/supabase/client";
 
 interface BlogPost {
@@ -41,6 +42,19 @@ export default function Blog() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Blog – Education News & Insights"
+        description="Read the latest news, insights, and educational articles from Win Academy, Dadu. Tips on IT, programming, and academic success."
+        path="/blog"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: "Blog", item: "https://winacademy.vercel.app/blog" },
+          ],
+        }}
+      />
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <motion.div
