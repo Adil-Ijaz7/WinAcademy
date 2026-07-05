@@ -86,8 +86,8 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-background/60">© {new Date().getFullYear()} {settings?.site_name || "Win Academy"}. All rights reserved.</p>
             <div className="flex items-center gap-6 text-sm text-background/60">
-              <Link to="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-              <Link to="#" className="hover:text-primary transition-colors">Terms & Conditions</Link>
+              <Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-primary transition-colors">Terms & Conditions</Link>
             </div>
           </div>
         </div>
