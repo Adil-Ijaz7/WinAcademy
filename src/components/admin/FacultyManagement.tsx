@@ -1,5 +1,22 @@
 import { useState, useEffect } from "react";
 import { Plus, Pencil, Trash2, GripVertical, X } from "lucide-react";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -27,6 +44,81 @@ interface FacultyMember {
   active: boolean;
 }
 
+interface SortableFacultyItemProps {
+  member: FacultyMember;
+  openEdit: (m: FacultyMember) => void;
+  toggleActive: (id: string, current: boolean) => void;
+  handleDelete: (id: string) => void;
+}
+
+function SortableFacultyItem({ member: m, openEdit, toggleActive, handleDelete }: SortableFacultyItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: m.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 1 : 0,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="flex items-center gap-4 bg-card border border-border rounded-xl p-4 relative"
+    >
+      <div {...attributes} {...listeners} className="cursor-grab hover:text-primary active:cursor-grabbing p-1 -ml-1">
+        <GripVertical className="w-4 h-4 text-muted-foreground shrink-0" />
+      </div>
+      <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 bg-muted">
+        {m.photo_url ? (
+          <img src={m.photo_url} alt={m.name} className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-lg font-bold">
+            {m.name.charAt(0)}
+          </div>
+        )}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="font-medium text-foreground truncate">{m.name}</p>
+        <p className="text-sm text-muted-foreground truncate">{m.role}</p>
+        <div className="flex flex-wrap gap-1 mt-1">
+          {m.qualifications?.slice(0, 2).map((q, i) => (
+            <span key={i} className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">{q}</span>
+          ))}
+          {(m.expertise?.length ?? 0) > 0 && (
+            <span className="text-xs text-muted-foreground">|</span>
+          )}
+          {m.expertise?.slice(0, 2).map((e, i) => (
+            <span key={i} className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded">{e}</span>
+          ))}
+        </div>
+      </div>
+      <Badge variant={m.active ? "default" : "secondary"}>
+        {m.active ? "Active" : "Hidden"}
+      </Badge>
+      <div className="flex items-center gap-1">
+        <Button variant="ghost" size="icon" onClick={() => openEdit(m)}>
+          <Pencil className="w-4 h-4" />
+        </Button>
+        <Button variant="ghost" size="icon" onClick={() => toggleActive(m.id, m.active)}>
+          <Switch checked={m.active} />
+        </Button>
+        <Button variant="ghost" size="icon" onClick={() => handleDelete(m.id)}>
+          <Trash2 className="w-4 h-4 text-destructive" />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 export function FacultyManagement() {
   const [members, setMembers] = useState<FacultyMember[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +136,39 @@ export function FacultyManagement() {
   const [expInput, setExpInput] = useState("");
   const [experience, setExperience] = useState("");
   const [active, setActive] = useState(true);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active: dragActive, over } = event;
+
+    if (over && dragActive.id !== over.id) {
+      const oldIndex = members.findIndex((m) => m.id === dragActive.id);
+      const newIndex = members.findIndex((m) => m.id === over.id);
+
+      const newMembers = arrayMove(members, oldIndex, newIndex);
+      setMembers(newMembers);
+
+      try {
+        await Promise.all(
+          newMembers.map((m, index) =>
+            supabase
+              .from("faculty_members")
+              .update({ display_order: index + 1 })
+              .eq("id", m.id)
+          )
+        );
+      } catch (error: any) {
+        toast({ title: "Error", description: "Failed to update order: " + error.message, variant: "destructive" });
+        fetchMembers(); // Revert on failure
+      }
+    }
+  };
 
   useEffect(() => {
     fetchMembers();
@@ -191,57 +316,31 @@ export function FacultyManagement() {
       </div>
 
       {/* Members List */}
-      <div className="grid gap-4">
-        {members.map((m) => (
-          <div
-            key={m.id}
-            className="flex items-center gap-4 bg-card border border-border rounded-xl p-4"
+      <DndContext 
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <div className="grid gap-4">
+          <SortableContext 
+            items={members.map(m => m.id)}
+            strategy={verticalListSortingStrategy}
           >
-            <GripVertical className="w-4 h-4 text-muted-foreground shrink-0" />
-            <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 bg-muted">
-              {m.photo_url ? (
-                <img src={m.photo_url} alt={m.name} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground text-lg font-bold">
-                  {m.name.charAt(0)}
-                </div>
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-medium text-foreground truncate">{m.name}</p>
-              <p className="text-sm text-muted-foreground truncate">{m.role}</p>
-              <div className="flex flex-wrap gap-1 mt-1">
-                {m.qualifications?.slice(0, 2).map((q, i) => (
-                  <span key={i} className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">{q}</span>
-                ))}
-                {(m.expertise?.length ?? 0) > 0 && (
-                  <span className="text-xs text-muted-foreground">|</span>
-                )}
-                {m.expertise?.slice(0, 2).map((e, i) => (
-                  <span key={i} className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded">{e}</span>
-                ))}
-              </div>
-            </div>
-            <Badge variant={m.active ? "default" : "secondary"}>
-              {m.active ? "Active" : "Hidden"}
-            </Badge>
-            <div className="flex items-center gap-1">
-              <Button variant="ghost" size="icon" onClick={() => openEdit(m)}>
-                <Pencil className="w-4 h-4" />
-              </Button>
-              <Button variant="ghost" size="icon" onClick={() => toggleActive(m.id, m.active)}>
-                <Switch checked={m.active} />
-              </Button>
-              <Button variant="ghost" size="icon" onClick={() => handleDelete(m.id)}>
-                <Trash2 className="w-4 h-4 text-destructive" />
-              </Button>
-            </div>
-          </div>
-        ))}
-        {members.length === 0 && (
-          <p className="text-center text-muted-foreground py-12">No faculty members yet</p>
-        )}
-      </div>
+            {members.map((m) => (
+              <SortableFacultyItem 
+                key={m.id}
+                member={m}
+                openEdit={openEdit}
+                toggleActive={toggleActive}
+                handleDelete={handleDelete}
+              />
+            ))}
+          </SortableContext>
+          {members.length === 0 && (
+            <p className="text-center text-muted-foreground py-12">No faculty members yet</p>
+          )}
+        </div>
+      </DndContext>
 
       {/* Add / Edit Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
