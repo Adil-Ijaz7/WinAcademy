@@ -11,6 +11,17 @@ import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
+type SiteSettings = {
+  address?: string;
+  phone?: string;
+  email?: string;
+  office_hours?: string;
+  map_embed_url?: string;
+};
+
+type Course = {
+  name: string;
+};
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -21,68 +32,15 @@ const Contact = () => {
   const [course, setCourse] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [settings, setSettings] = useState<any>(null);
   const [courseList, setCourseList] = useState<string[]>([]);
-  const { toast } = useToast();
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
 
   useEffect(() => {
-    supabase.from("site_settings").select("*").limit(1).maybeSingle().then(({ data }) => { if (data) setSettings(data); });
+    supabase.from("site_settings").select("*").limit(1).maybeSingle().then(({ data }) => { if (data) setSettings(data as SiteSettings); });
     supabase.from("courses").select("name").eq("active", true).order("display_order").then(({ data }) => {
-      if (data) setCourseList(data.map((c: any) => c.name));
+      if (data) setCourseList(data.map((c: Course) => c.name));
     });
   }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("https://formsubmit.co/ajax/winacademydadu@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          course,
-          subject,
-          message,
-          _subject: "New Contact Form Submission",
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message via FormSubmit");
-      }
-
-      setSubmitted(true);
-      toast({
-        title: "Message Sent!",
-        description: "We've received your message and will get back to you soon.",
-      });
-      setTimeout(() => {
-        setSubmitted(false);
-        setName("");
-        setEmail("");
-        setPhone("");
-        setCourse("");
-        setSubject("");
-        setMessage("");
-      }, 3000);
-    } catch (error: any) {
-      console.error("Contact form error:", error);
-      toast({
-        title: "Failed to send",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <Layout>
@@ -164,119 +122,101 @@ const Contact = () => {
                   Fill out the form below and we'll get back to you shortly.
                 </p>
 
-                {submitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
-                  >
-                    <div className="w-16 h-16 gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                      <CheckCircle className="w-8 h-8 text-primary-foreground" />
-                    </div>
-                    <h3 className="font-heading text-xl font-semibold text-foreground mb-2">
-                      Message Sent!
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Thank you for reaching out. We'll contact you soon.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
-                        <Input
-                          id="name"
-                          placeholder="Your full name"
-                          required
-                          className="h-12"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="your@email.com"
-                          required
-                          className="h-12"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </div>
-                    </div>
+                <form action="https://formsubmit.co/winacademydadu@gmail.com" method="POST" className="space-y-6">
+                  <input type="hidden" name="_subject" value="New Contact Form Submission" />
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_next" value="https://www.winacademy.tech/contact" />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <Input
-                          id="phone"
-                          type="tel"
-                          placeholder="+92 XXX XXXXXXX"
-                          className="h-12"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="course">Course Interest</Label>
-                        <Select value={course} onValueChange={setCourse}>
-                          <SelectTrigger className="h-12">
-                            <SelectValue placeholder="Select a course" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {courseList.map((c) => (
-                              <SelectItem key={c} value={c.toLowerCase().replace(/\s+/g, "-")}>
-                                {c}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="subject">Subject *</Label>
+                      <Label htmlFor="name">Full Name *</Label>
                       <Input
-                        id="subject"
-                        placeholder="What is this about?"
+                        id="name"
+                        name="name"
+                        placeholder="Your full name"
                         required
                         className="h-12"
-                        value={subject}
-                        onChange={(e) => setSubject(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                       />
                     </div>
-
                     <div className="space-y-2">
-                      <Label htmlFor="message">Message *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Tell us about your learning goals..."
-                        rows={5}
+                      <Label htmlFor="email">Email Address *</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="your@email.com"
                         required
-                        className="resize-none"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
+                        className="h-12"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
+                  </div>
 
-                    <Button type="submit" variant="accent" size="xl" className="w-full" disabled={isSubmitting}>
-                      {isSubmitting ? (
-                        <>
-                          <div className="w-5 h-5 border-2 border-background/30 border-t-background rounded-full animate-spin mr-2" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="mr-2" size={20} />
-                          Send Message
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        placeholder="+92 XXX XXXXXXX"
+                        className="h-12"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="course">Course Interest</Label>
+                      <Select name="course" value={course} onValueChange={setCourse}>
+                        <SelectTrigger className="h-12">
+                          <SelectValue placeholder="Select a course" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {courseList.map((c) => (
+                            <SelectItem key={c} value={c.toLowerCase().replace(/\s+/g, "-")}>
+                              {c}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Subject *</Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      placeholder="What is this about?"
+                      required
+                      className="h-12"
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message *</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      placeholder="Tell us about your learning goals..."
+                      rows={5}
+                      required
+                      className="resize-none"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                    />
+                  </div>
+
+                  <Button type="submit" variant="accent" size="xl" className="w-full">
+                    <Send className="mr-2" size={20} />
+                    Send Message
+                  </Button>
+                </form>
               </div>
             </motion.div>
 
@@ -292,7 +232,7 @@ const Contact = () => {
                   Get In Touch
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Visit us at our campus or reach out through any of the contact methods below. 
+                  Visit us at our campus or reach out through any of the contact methods below.
                   Our team is ready to assist you with enrollment inquiries and course information.
                 </p>
               </div>
