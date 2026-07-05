@@ -3,6 +3,7 @@ import { SEOHead } from "@/components/seo/SEOHead";
 import { Hero } from "@/components/home/Hero";
 import { Features } from "@/components/home/Features";
 import { CoursePreview } from "@/components/home/CoursePreview";
+import { Affiliations } from "@/components/home/Affiliations";
 import { Testimonials } from "@/components/home/Testimonials";
 import { CTA } from "@/components/home/CTA";
 import { AdSlider } from "@/components/home/AdSlider";
@@ -46,6 +47,7 @@ const Index = () => {
         jsonLd={homeJsonLd}
       />
       <Hero />
+      <Affiliations />
       <AdSlider placement="home" />
       <Features />
       <CoursePreview />
