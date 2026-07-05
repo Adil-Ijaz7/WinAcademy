@@ -37,11 +37,26 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke("send-contact-message", {
-        body: { name, email, phone, course, subject, message },
+      const response = await fetch("https://formsubmit.co/ajax/winacademydadu@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          course,
+          subject,
+          message,
+          _subject: "New Contact Form Submission",
+        }),
       });
 
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error("Failed to send message via FormSubmit");
+      }
 
       setSubmitted(true);
       toast({

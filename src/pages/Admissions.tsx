@@ -126,11 +126,24 @@ export default function Admissions() {
 
       if (dbError) throw new Error(dbError.message);
 
-      const { error: emailError } = await supabase.functions.invoke(
-        "send-admission-confirmation",
-        { body: { applicationId: application.id } }
-      );
-      if (emailError) console.error("Email error:", emailError);
+      const response = await fetch("https://formsubmit.co/ajax/winacademydadu@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          fullName: data.fullName,
+          fatherName: data.fatherName,
+          email: data.email || "No Email",
+          phone: data.phone,
+          courseInterest: data.courseInterest,
+          city: data.city,
+          message: data.message,
+          _subject: "New Admission Application: " + data.fullName,
+        }),
+      });
+      if (!response.ok) console.error("FormSubmit error");
 
       setIsSubmitted(true);
       toast({
