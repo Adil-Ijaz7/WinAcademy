@@ -97,6 +97,35 @@ export function CourseManagement() {
 
   const generateSlug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
+  const handleSeedCourses = async () => {
+    const initialCourses = [
+      { name: "Java", slug: "java", category: "IT & Computer", short_description: "Learn Java programming.", description: "Comprehensive Java course.", active: true, display_order: 1 },
+      { name: "Python", slug: "python", category: "IT & Computer", short_description: "Master Python programming.", description: "Learn Python from scratch.", active: true, display_order: 2 },
+      { name: "C++", slug: "cpp", category: "IT & Computer", short_description: "Deep dive into C++.", description: "Understand C++ programming.", active: true, display_order: 3 },
+      { name: "Web Development", slug: "web-development", category: "IT & Computer", short_description: "Build modern websites.", description: "Learn HTML, CSS, JS, and React.", active: true, display_order: 4 },
+      { name: "AI", slug: "ai", category: "IT & Computer", short_description: "Intro to Artificial Intelligence.", description: "Explore AI and Machine Learning.", active: true, display_order: 5 },
+      { name: "English Speak And Writing", slug: "english-speak-writing", category: "Academic", short_description: "Improve your English.", description: "Comprehensive course to enhance spoken and written English.", active: true, display_order: 6 },
+      { name: "Chemistry", slug: "chemistry", category: "Academic", short_description: "Core chemistry concepts.", description: "In-depth academic chemistry course.", active: true, display_order: 7 },
+      { name: "Physics", slug: "physics", category: "Academic", short_description: "Understand the laws of physics.", description: "Academic physics course.", active: true, display_order: 8 },
+      { name: "Maths", slug: "maths", category: "Academic", short_description: "Advanced mathematics.", description: "Covering algebra, calculus, and geometry.", active: true, display_order: 9 },
+      { name: "Dairy Work", slug: "dairy-work", category: "Vocational", short_description: "Learn modern dairy farming.", description: "Vocational training in dairy farm management.", active: true, display_order: 10 },
+      { name: "Beautician", slug: "beautician", category: "Vocational", short_description: "Professional beautician training.", description: "Learn skin care, makeup, and salon management.", active: true, display_order: 11 },
+      { name: "Sewing", slug: "sewing", category: "Vocational", short_description: "Master sewing and tailoring.", description: "Vocational training in dressmaking.", active: true, display_order: 12 },
+      { name: "Office Automation", slug: "office-automation", category: "IT & Computer", short_description: "Master MS Office.", description: "Essential computer skills for the workplace.", active: true, display_order: 13 },
+      { name: "CIT", slug: "cit", category: "IT & Computer", short_description: "Certificate in IT.", description: "Fundamental Certificate in Information Technology.", active: true, display_order: 14 },
+      { name: "DIT", slug: "dit", category: "IT & Computer", short_description: "Diploma in IT.", description: "Comprehensive Diploma in Information Technology.", active: true, display_order: 15 }
+    ];
+
+    if (!confirm("Are you sure you want to add all 15 initial courses?")) return;
+    
+    setIsLoading(true);
+    for (const c of initialCourses) {
+      await supabase.from("courses").insert(c);
+    }
+    toast({ title: "Successfully seeded courses!" });
+    fetchCourses();
+  };
+
   if (isLoading) return <div className="flex justify-center py-12"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>;
 
   return (
@@ -104,6 +133,7 @@ export function CourseManagement() {
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-heading font-bold text-foreground">Courses ({courses.length})</h2>
         <div className="flex gap-2">
+          <Button variant="secondary" size="sm" onClick={handleSeedCourses}>Auto-Fill 15 Courses</Button>
           <Button variant="outline" size="sm" onClick={fetchCourses}><RefreshCw className="w-4 h-4 mr-2" />Refresh</Button>
           <Button size="sm" onClick={openAdd}><Plus className="w-4 h-4 mr-2" />Add Course</Button>
         </div>
