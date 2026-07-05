@@ -43,8 +43,8 @@ const About = () => {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
-            { "@type": "ListItem", position: 2, name: "About Us", item: "https://winacademy.vercel.app/about" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.tech/" },
+            { "@type": "ListItem", position: 2, name: "About Us", item: "https://winacademy.tech/about" },
           ],
         }}
       />

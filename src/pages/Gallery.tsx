@@ -88,8 +88,8 @@ export default function Gallery() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
-            { "@type": "ListItem", position: 2, name: "Gallery", item: "https://winacademy.vercel.app/gallery" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.tech/" },
+            { "@type": "ListItem", position: 2, name: "Gallery", item: "https://winacademy.tech/gallery" },
           ],
         }}
       />

@@ -5,6 +5,7 @@ import { SEOHead } from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock, Award, BookOpen } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Course {
@@ -63,8 +64,8 @@ const Courses = () => {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
-            { "@type": "ListItem", position: 2, name: "Courses", item: "https://winacademy.vercel.app/courses" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.tech/" },
+            { "@type": "ListItem", position: 2, name: "Courses", item: "https://winacademy.tech/courses" },
           ],
         }}
       />
@@ -91,7 +92,23 @@ const Courses = () => {
           </motion.div>
 
           {isLoading ? (
-            <div className="flex justify-center py-12"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="bg-card rounded-2xl p-6 lg:p-8 shadow-md border border-border flex flex-col h-[400px]">
+                  <div className="flex justify-between mb-4">
+                    <Skeleton className="w-14 h-14 rounded-xl" />
+                    <Skeleton className="w-20 h-6 rounded-full" />
+                  </div>
+                  <Skeleton className="w-3/4 h-6 mb-3" />
+                  <Skeleton className="w-full h-4 mb-2" />
+                  <Skeleton className="w-full h-4 mb-2" />
+                  <Skeleton className="w-2/3 h-4 mb-6" />
+                  <div className="mt-auto">
+                    <Skeleton className="w-full h-10 rounded-md" />
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {filteredCourses.map((course, index) => (

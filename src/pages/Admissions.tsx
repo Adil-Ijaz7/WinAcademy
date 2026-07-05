@@ -188,8 +188,8 @@ export default function Admissions() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
-            { "@type": "ListItem", position: 2, name: "Admissions", item: "https://winacademy.vercel.app/admissions" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.tech/" },
+            { "@type": "ListItem", position: 2, name: "Admissions", item: "https://winacademy.tech/admissions" },
           ],
         }}
       />

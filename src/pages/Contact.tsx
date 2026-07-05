@@ -79,7 +79,7 @@ const Contact = () => {
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           name: "Win Academy",
-          image: "https://winacademy.vercel.app/logo.png",
+          image: "https://winacademy.tech/logo.png",
           telephone: "+923453781552",
           email: "winacademydadu@gmail.com",
           address: {
@@ -93,8 +93,8 @@ const Contact = () => {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
-            { "@type": "ListItem", position: 2, name: "Contact", item: "https://winacademy.vercel.app/contact" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.tech/" },
+            { "@type": "ListItem", position: 2, name: "Contact", item: "https://winacademy.tech/contact" },
           ],
         }]}
       />

@@ -27,7 +27,7 @@ export function SEOHead({
 }: SEOHeadProps) {
   const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} – Premier Education Institute in Dadu, Sindh`;
   // We use a relative base; the og:url will work once deployed to the real domain
-  const siteUrl = "https://winacademy.vercel.app";
+  const siteUrl = "https://winacademy.tech";
   const canonicalUrl = `${siteUrl}${path}`;
   const imageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
 

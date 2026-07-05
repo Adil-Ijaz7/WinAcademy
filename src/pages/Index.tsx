@@ -15,8 +15,8 @@ const homeJsonLd = [
     name: "Win Academy",
     description:
       "Premier academic and computer education institute in Dadu, Sindh, Pakistan with 22+ years of experience.",
-    url: "https://winacademy.vercel.app",
-    logo: "https://winacademy.vercel.app/logo.png",
+    url: "https://winacademy.tech",
+    logo: "https://winacademy.tech/logo.png",
     foundingDate: "2003",
     address: {
       "@type": "PostalAddress",
@@ -33,7 +33,7 @@ const homeJsonLd = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Win Academy",
-    url: "https://winacademy.vercel.app",
+    url: "https://winacademy.tech",
   },
 ];
 

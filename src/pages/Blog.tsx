@@ -50,8 +50,8 @@ export default function Blog() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
-            { "@type": "ListItem", position: 2, name: "Blog", item: "https://winacademy.vercel.app/blog" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.tech/" },
+            { "@type": "ListItem", position: 2, name: "Blog", item: "https://winacademy.tech/blog" },
           ],
         }}
       />

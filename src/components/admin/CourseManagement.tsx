@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { Plus, Pencil, Trash2, RefreshCw } from "lucide-react";
 
@@ -126,7 +127,12 @@ export function CourseManagement() {
     fetchCourses();
   };
 
-  if (isLoading) return <div className="flex justify-center py-12"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>;
+  if (isLoading) return (
+    <div className="space-y-4">
+      <Skeleton className="h-10 w-[200px]" />
+      <Skeleton className="h-[400px] w-full rounded-xl" />
+    </div>
+  );
 
   return (
     <div className="space-y-6">

@@ -15,4 +15,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/auth
 
-Sitemap: https://winacademy.vercel.app/sitemap.xml
+Sitemap: https://winacademy.tech/sitemap.xml

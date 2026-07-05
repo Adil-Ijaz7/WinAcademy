@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://winacademy.vercel.app/</loc>
+    <loc>https://winacademy.tech/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://winacademy.vercel.app/about</loc>
+    <loc>https://winacademy.tech/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://winacademy.vercel.app/courses</loc>
+    <loc>https://winacademy.tech/courses</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://winacademy.vercel.app/faculty</loc>
+    <loc>https://winacademy.tech/faculty</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://winacademy.vercel.app/gallery</loc>
+    <loc>https://winacademy.tech/gallery</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://winacademy.vercel.app/blog</loc>
+    <loc>https://winacademy.tech/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://winacademy.vercel.app/contact</loc>
+    <loc>https://winacademy.tech/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://winacademy.vercel.app/admissions</loc>
+    <loc>https://winacademy.tech/admissions</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>

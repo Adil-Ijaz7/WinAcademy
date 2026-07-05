@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { GraduationCap, Award, BookOpen } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -64,8 +65,8 @@ export default function Faculty() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
-            { "@type": "ListItem", position: 2, name: "Faculty", item: "https://winacademy.vercel.app/faculty" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.tech/" },
+            { "@type": "ListItem", position: 2, name: "Faculty", item: "https://winacademy.tech/faculty" },
           ],
         }}
       />
@@ -119,8 +120,18 @@ export default function Faculty() {
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
           {isLoading ? (
-            <div className="flex items-center justify-center py-12">
-              <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <Card key={i} className="overflow-hidden h-full">
+                  <Skeleton className="w-full aspect-square" />
+                  <CardContent className="p-6 space-y-4">
+                    <Skeleton className="w-3/4 h-6 mb-2" />
+                    <Skeleton className="w-full h-4 mb-2" />
+                    <Skeleton className="w-1/2 h-4 mb-4" />
+                    <Skeleton className="w-2/3 h-4" />
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           ) : (
             <motion.div

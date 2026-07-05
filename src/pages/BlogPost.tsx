@@ -100,15 +100,15 @@ export default function BlogPost() {
           publisher: {
             "@type": "Organization",
             name: "Win Academy",
-            logo: { "@type": "ImageObject", url: "https://winacademy.vercel.app/logo.png" },
+            logo: { "@type": "ImageObject", url: "https://winacademy.tech/logo.png" },
           },
         }, {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.vercel.app/" },
-            { "@type": "ListItem", position: 2, name: "Blog", item: "https://winacademy.vercel.app/blog" },
-            { "@type": "ListItem", position: 3, name: post.title, item: `https://winacademy.vercel.app/blog/${slug}` },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://winacademy.tech/" },
+            { "@type": "ListItem", position: 2, name: "Blog", item: "https://winacademy.tech/blog" },
+            { "@type": "ListItem", position: 3, name: post.title, item: `https://winacademy.tech/blog/${slug}` },
           ],
         }]}
       />
