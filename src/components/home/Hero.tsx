@@ -33,8 +33,8 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center gradient-hero">
-      <div className="container mx-auto px-4 relative z-10 py-5">
-        <div className="max-w-3xl mx-auto text-center">
+      <div className="mx-auto w-full max-w-[1600px] min-w-0 px-6 sm:px-8 lg:px-16 xl:px-24 2xl:px-32 relative z-10 py-8 lg:py-14">
+        <div className="w-full max-w-[1200px] mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-8 flex justify-center">
             <img 
               alt="Win Academy" 
@@ -47,11 +47,11 @@ export function Hero() {
             {subtitle}
           </motion.span>
 
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="font-heading text-4xl lg:text-6xl font-bold leading-tight mb-6 text-primary-foreground">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="mx-auto max-w-6xl font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-primary-foreground text-balance">
             {title}
           </motion.h1>
 
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="text-lg text-primary-foreground/80 max-w-xl mx-auto mb-10">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="text-lg sm:text-xl text-primary-foreground/80 max-w-5xl mx-auto mb-10 text-justify hyphens-auto leading-relaxed">
             {content}
           </motion.p>
 
@@ -64,7 +64,7 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.6 }} className="mt-16 flex justify-center gap-12 lg:gap-16">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.6 }} className="mt-16 flex flex-wrap justify-center gap-x-12 gap-y-6 lg:gap-x-16">
             {stats.map((stat: any, index: number) => (
               <div key={index} className="text-center">
                 <div className="font-heading text-2xl lg:text-3xl font-bold text-primary-foreground">{stat.number}</div>
