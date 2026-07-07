@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/seo/SEOHead";
-import { Target, Eye, BookOpen, Award, Users, Lightbulb } from "lucide-react";
+import { Target, Eye, BookOpen, Award, Users, Lightbulb, Monitor, Sofa, Camera, Droplets, ShieldPlus, Flame, BatteryCharging, Laptop, Scissors, UtensilsCrossed, Wifi, Shirt } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const values = [
@@ -10,6 +10,21 @@ const values = [
   { icon: Lightbulb, title: "Innovation", description: "Embracing new technologies and teaching methodologies." },
   { icon: Users, title: "Community", description: "Building a supportive learning community for all students." },
   { icon: Award, title: "Achievement", description: "Celebrating and nurturing student accomplishments." },
+];
+
+const amenities = [
+  { icon: Laptop, title: "Computer Lab", description: "Well-equipped labs spaces for hands-on computer learning and practice." },
+  { icon: Scissors, title: "Beautician Lab", description: "Dedicated training space for grooming, beauty, and salon skill development." },
+  { icon: UtensilsCrossed, title: "Canteen", description: "A convenient canteen area for students and staff during the day." },
+  { icon: Wifi, title: "High-Speed Internet", description: "Fast internet access to support digital learning and online resources." },
+  { icon: Shirt, title: "Sewing Machine Workshop", description: "Practical workshop space for sewing, tailoring, and vocational training." },
+  { icon: Monitor, title: "Multimedia Projectors", description: "Interactive classrooms equipped for modern teaching and presentations." },
+  { icon: Sofa, title: "Comfortable Furniture", description: "Student-friendly seating and desks designed for a better learning experience." },
+  { icon: Camera, title: "CCTV Cameras", description: "Secure learning spaces with continuous monitoring for safety and discipline." },
+  { icon: Droplets, title: "Clean Drinking Water", description: "Fresh and accessible drinking water for students and staff." },
+  { icon: BatteryCharging, title: "Power Backup & 24/7 Electricity", description: "Reliable power support to keep classes and equipment running without interruption." },
+  { icon: ShieldPlus, title: "First Aid Box", description: "Basic medical support available on campus for quick response to minor needs." },
+  { icon: Flame, title: "Fire Extinguishers", description: "Safety equipment installed to support emergency preparedness." },
 ];
 
 const About = () => {
@@ -92,6 +107,41 @@ const About = () => {
                 <p className="text-sm text-muted-foreground">{who.meta.promise || "Commitment to every student's academic and personal growth."}</p>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-12 lg:mb-16">
+            <motion.span initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Campus Amenities</motion.span>
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="font-heading text-3xl lg:text-4xl font-bold text-foreground">Classrooms Equipped for Learning</motion.h2>
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="mt-4 text-muted-foreground">
+              Our campus is designed to provide a safe, comfortable, and supportive environment for students.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {amenities.map((amenity, index) => {
+              const Icon = amenity.icon;
+
+              return (
+                <motion.div
+                  key={amenity.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                  className="bg-card rounded-2xl p-6 shadow-md border border-border card-hover"
+                >
+                  <div className="w-14 h-14 gradient-primary rounded-2xl flex items-center justify-center mb-4">
+                    <Icon className="w-7 h-7 text-primary-foreground" />
+                  </div>
+                  <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{amenity.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{amenity.description}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
