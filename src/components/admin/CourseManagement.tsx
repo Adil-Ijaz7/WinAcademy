@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Pencil, Trash2, RefreshCw } from "lucide-react";
+import { Plus, Pencil, Trash2, RefreshCw, ChevronUp, ChevronDown } from "lucide-react";
 
 interface Course {
   id: string;
@@ -96,6 +96,33 @@ export function CourseManagement() {
     else { toast({ title: "Course deleted!" }); fetchCourses(); }
   };
 
+  const moveCourse = async (courseId: string, direction: "up" | "down") => {
+    const sortedCourses = [...courses].sort((left, right) => left.display_order - right.display_order);
+    const currentIndex = sortedCourses.findIndex((course) => course.id === courseId);
+
+    if (currentIndex === -1) return;
+    if (direction === "up" && currentIndex === 0) return;
+    if (direction === "down" && currentIndex === sortedCourses.length - 1) return;
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    const currentCourse = sortedCourses[currentIndex];
+    const targetCourse = sortedCourses[targetIndex];
+
+    const [currentUpdate, targetUpdate] = await Promise.all([
+      supabase.from("courses").update({ display_order: targetCourse.display_order }).eq("id", currentCourse.id),
+      supabase.from("courses").update({ display_order: currentCourse.display_order }).eq("id", targetCourse.id),
+    ]);
+
+    const error = currentUpdate.error || targetUpdate.error;
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+      return;
+    }
+
+    toast({ title: "Course order updated!" });
+    fetchCourses();
+  };
+
   const generateSlug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
   const handleSeedCourses = async () => {
@@ -157,7 +184,7 @@ export function CourseManagement() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {courses.map((course) => (
+            {courses.map((course, index) => (
               <tr key={course.id} className="hover:bg-muted/30">
                 <td className="px-4 py-3">
                   <p className="font-medium text-foreground">{course.name}</p>
@@ -171,6 +198,12 @@ export function CourseManagement() {
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right">
+                  <Button variant="ghost" size="sm" onClick={() => moveCourse(course.id, "up")} disabled={index === 0}>
+                    <ChevronUp className="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => moveCourse(course.id, "down")} disabled={index === courses.length - 1}>
+                    <ChevronDown className="w-4 h-4" />
+                  </Button>
                   <Button variant="ghost" size="sm" onClick={() => openEdit(course)}><Pencil className="w-4 h-4" /></Button>
                   <Button variant="ghost" size="sm" onClick={() => handleDelete(course.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
                 </td>
